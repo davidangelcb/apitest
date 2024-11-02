@@ -1,0 +1,105 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: davidcamab
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: app-ts
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: apitest
+
+custom:
+  secrets: ${file(.secrets.json)}
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  timeout: 30
+  region: ${self:custom.secrets.AWS_REGION}
+ 
+  environment:
+    REGION: ${self:provider.region}
+    MYSQL_USER: ${self:custom.secrets.MYSQL_USER}
+    MYSQL_PASSWORD: ${self:custom.secrets.MYSQL_PASSWORD}
+    MYSQL_URI: ${self:custom.secrets.MYSQL_URI}
+    MYSQL_DATABASE: ${self:custom.secrets.MYSQL_DATABASE}
+    DATABASE_TYPE: ${self:custom.secrets.DATABASE_TYPE}
+    STAGE: ${self:custom.secrets.NODE_ENV}
+    URL_SWAPI: ${self:custom.secrets.URL_SWAPI}
+  
+functions:
+  planets:
+    handler: src/handlers/planets.handler
+    events:
+      - httpApi:
+          path: /swapi/planets/{id}
+          method: GET          
+      - httpApi:
+          path: /swapi/planets
+          method: GET
+
+  films:
+    handler: src/handlers/films.handler
+    events:
+      - httpApi:
+          path: /swapi/films/{id}
+          method: GET          
+      - httpApi:
+          path: /swapi/films
+          method: GET
+
+  people:
+    handler: src/handlers/people.handler
+    events:
+      - httpApi:
+          path: /swapi/people/{id}
+          method: GET          
+      - httpApi:
+          path: /swapi/people
+          method: GET
+          
+  docs:
+    handler: src/handlers/docs.handler
+    events:
+      - httpApi:
+          path: /api-docs
+          method: GET
+      - httpApi:
+          path: /api-docs/{any+}
+          method: GET
+
+  clients:
+    handler: src/handlers/clients.handler
+    events:
+      - httpApi:
+          path: /v1/clients
+          method: GET
+      - httpApi:
+          path: /v1/clients/{id}
+          method: GET
+      - httpApi:
+          path: /v1/clients
+          method: POST
+    # /api/web ...   
+  swapi:
+    handler: src/handlers/swapi.handler
+    events:
+      - httpApi:
+          path: /swapi/species/{id}
+          method: GET
+      - httpApi:
+          path: /swapi/starships/{id}
+          method: GET
+      - httpApi:
+          path: /swapi/vehicles/{id}
+          method: GET
+      - httpApi:
+          path: /swapi/species
+          method: GET
+      - httpApi:
+          path: /swapi/starships
+          method: GET
+      - httpApi:
+          path: /swapi/vehicles
+          method: GET          
+    # /api/web ...  
+
+plugins:
+  - serverless-offline 

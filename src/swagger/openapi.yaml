@@ -1,0 +1,366 @@
+openapi: 3.0.0
+info:
+  title: API Demo
+  description: Only for test.
+  version: 1.0.0
+
+servers:
+  - url: https://api.example.com/
+    description: Servidor de producción
+  - url: http://localhost:3000
+    description: Servidor local
+
+tags:
+  - name: Clients
+    description: CRUD for clients
+  - name: films
+    description: CRUD for films
+  - name: people
+    description: CRUD for pleople
+  - name: planets
+    description: CRUD for planets
+  - name: species
+    description: CRUD for species
+  - name: vehicles
+    description: CRUD for vehicles
+  - name: starships
+    description: CRUD for starships    
+paths:
+
+  /v1/clients:
+    get:
+      tags:
+        - Clients
+      summary: get all clients
+      responses:
+        '200':
+          description: List of clients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Client'
+    post:
+      tags:
+        - Clients    
+      summary: new client
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClientInput'
+      responses:
+        '201':
+          description: Client creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+  
+  /v1/clients/{id}:
+    get:
+      tags:
+        - Clients    
+      summary: get client by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of client
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Client encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Client'
+        '404':
+          description: Client no encontrado
+          
+  /swapi/films:
+    get:
+      tags:
+        - films
+      summary: get all films
+      responses:
+        '200':
+          description: List of clients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/dataAll'    
+                  
+  /swapi/films/{id}:
+    get:
+      tags:
+        - films  
+      summary: get film by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of film
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: film  encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data'
+        '404':
+          description: film no encontrado
+          
+  /swapi/people:
+    get:
+      tags:
+        - people
+      summary: get all people
+      responses:
+        '200':
+          description: List of people
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/dataAll'    
+                  
+  /swapi/people/{id}:
+    get:
+      tags:
+        - people  
+      summary: get people by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of people
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: people  encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data'
+        '404':
+          description: people no encontrado
+ 
+  /swapi/planets:
+    get:
+      tags:
+        - planets
+      summary: get all planets
+      responses:
+        '200':
+          description: List of planets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/dataAll'    
+                  
+  /swapi/planets/{id}:
+    get:
+      tags:
+        - planets  
+      summary: get planet by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of planet
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: planet  encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data'
+        '404':
+          description: planet no encontrado
+
+  /swapi/species:
+    get:
+      tags:
+        - species
+      summary: get all species
+      responses:
+        '200':
+          description: List of species
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/dataAll'    
+                  
+  /swapi/species/{id}:
+    get:
+      tags:
+        - species  
+      summary: get species by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of species
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: species  encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data'
+        '404':
+          description: species no encontrado
+ 
+  /swapi/vehicles:
+    get:
+      tags:
+        - vehicles
+      summary: get all vehicles
+      responses:
+        '200':
+          description: List of vehicles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/dataAll'    
+                  
+  /swapi/vehicles/{id}:
+    get:
+      tags:
+        - vehicles  
+      summary: get vehicle by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of vehicle
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: vehicle  encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data'
+        '404':
+          description: vehicle no encontrado
+
+  /swapi/starships:
+    get:
+      tags:
+        - starships
+      summary: get all starships
+      responses:
+        '200':
+          description: List of starships
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/dataAll'    
+                  
+  /swapi/starships/{id}:
+    get:
+      tags:
+        - starships  
+      summary: get starship by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of starship
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: starship  encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data'
+        '404':
+          description: starship no encontrado
+          
+components:
+  schemas:
+
+    Client:
+      type: object
+      properties:
+
+        firstname:
+          type: string
+        lastname:
+          type: string
+        dni:
+          type: integer
+        age:
+          type: integer
+        linkedin:
+          type: string
+      required:
+
+        - firstname
+        - lastname
+        - dni
+        - age
+        - linkedin
+
+    ClientInput:
+      type: object
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        dni:
+          type: integer
+        age:
+          type: integer
+        linkedin:
+          type: string
+      required:
+        - firstname
+        - lastname
+        - dni
+        - age
+        - linkedin
+    
+    dataAll:
+      type: object
+      properties:
+        count:
+          type: integer
+        countInPage:
+          type: integer
+        next:
+          type: string
+        previous:
+          type: string
+        items:
+          type: object
+    
+    data:
+      type: object
